@@ -1,20 +1,31 @@
-const names=["saman","kamal","nimal","sunil","shehan"];
+let body = "";
 
-loadData();
+fetch("https://fakestoreapi.com/products")
+    .then(res => res.json())
+    .then(data => {
+        data.forEach(element => {
+            body += 
+`<div class="col">
+    <div class="card shadow-sm">
+        <img src="${element.image}" alt="">
+        <div class="card-body">
+            
+            <p class="card-text">${element.description}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-body-secondary">${element.price}</small>
+            </div>
+        </div>
+    </div>
+</div>`
 
-function loadData(){
-    let body="";
-    for (const name of names) {
-        body+=`<li>${name}</li>`;
-    }
-    document.getElementById("ordertList").innerHTML = body;
-}
-
-function addName(){
-    let inputName = document.getElementById("txtName").value;
-    names.push(inputName);
-    loadData();
-}
+        console.log(element);
+        });
+        document.getElementById("row").innerHTML = body;
+    })
 
 
 
